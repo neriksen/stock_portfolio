@@ -133,3 +133,4 @@ csv/
 tickers/
 app.py
 yfinancemodule/
+stockportfolio.py
