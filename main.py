@@ -13,13 +13,13 @@ register_matplotlib_converters()
 #------------------SETTINGS---------------------
 #yf_tickers =         ['IVV', 'EDV']
 #yf_tickers =        ['TQQQ', 'TMF', 'VSCFX', 'IOFIX']
-#yf_tickers =        ['MGK', 'EDV']
+yf_tickers =        ['MGK', 'EDV']
 # yf_tickers =        ['IVV', 'TLT']
 #yf_tickers =        ['MBB', 'LQD', 'QQQ']
 #yf_tickers =        ['EDV', 'QQQ']
 #yf_tickers =        ['TQQQ', 'TMF']
 #yf_tickers =        ['SXRV.DE', 'DBXG.DE', 'EZA']
-yf_tickers =        ['QQQ', 'TLT', 'EZA']
+#yf_tickers =        ['QQQ', 'TLT', 'EZA']
 #bund_2x = '5X61.F'
 #yf_tickers =        ['QQQ', 'TLT', 'AFK']
 #yf_tickers =        ['SXRV.DE', 'XUTD.DE', 'LGQM.DE']
@@ -35,13 +35,15 @@ yf_tickers =        ['QQQ', 'TLT', 'EZA']
 #yf_tickers =        ['NOVO-B.CO', 'TRYG.CO', 'NZYM-B.CO', 'BAVA.CO', 'DANSKE.CO', 'LUN.CO', 'RBREW.CO', 'DEMANT.CO',
 #                     'AMBU-B.CO', 'ORPHA.CO']
 #yf_tickers = ['NPINV.CO', 'CHR.CO', 'COLO-B.CO', 'AMBU-B.CO', 'BAVA.CO', 'NOVO-B.CO', 'TRYG.CO', 'RBREW.CO']
+#yf_tickers = ['NPINV.CO', 'COLO-B.CO']
+
 
 #weights =           [.02, .05, .1, .2, .1, .2, .1, .23]
-weights =           [1.1, .8, -.9]
+#weights =           [1.1, .8, -.9]
 #weights =           [1.1, .8, -.9]
 #weights =           [-.4, -.2, .53, .53, .54]
 #weights =           [0.3, 0.2, 0.2, 0.3]
-#weights =            [.4, .6]
+weights =            [.4, .6]
 #weights =            [-0.1, 0.1]
 #weights = [-.1, 1.1]
 #weights =           []
@@ -49,7 +51,7 @@ weights =           [1.1, .8, -.9]
 
 invest_amount = 44000
 gearing = 1
-per = '3y'
+per = '12y'
 rebalance_fee = 0.0002
 expense_ratio = 0.0
 
@@ -68,10 +70,7 @@ prices_pctchange = prices.pct_change()
 prices_index = pt.normalize_data_frame(prices)
 
 monthly_price_changes = prices_index.asfreq('BM', method='pad').pct_change()
-contra_weights = np.zeros_like(monthly_price_changes.values)
-contra_weights[np.arange(len(monthly_price_changes)), monthly_price_changes.values.argmax(1)] = 1
 
-contra_weights_b = pd.DataFrame(contra_weights, index = monthly_price_changes.index).asfreq(freq='B', method='pad')
 # Initial weights
 weights = pt.fill_weights(weights, prices)
 original_weights = pd.DataFrame(weights, copy=True)
