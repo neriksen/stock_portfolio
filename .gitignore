@@ -132,4 +132,4 @@ dmypy.json
 csv/
 tickers/
 app.py
-yfinancemodule
+yfinancemodule/
