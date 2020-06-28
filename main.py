@@ -85,6 +85,7 @@ weights = pt.actual_weights(prices, stock_value)
 # Portfolio performance
 daily_return = pt.calculate_total_return(prices, prices_pctchange, weights, gearing, rebalance_fee, expense_ratio)
 daily_return['Return'] = pt.normalize_data_frame(daily_return['Return'])
+return_contributions = pd.DataFrame(prices_pctchange*weights, index=prices.index, columns=short_names)
 
 # S&P 500 for comparison
 comparisons = pd.DataFrame(yf.download(['SPY', '^NDX'], period=per)['Adj Close'])
@@ -124,16 +125,10 @@ print(daily_return['Daily return'].tail()*100)
 
 
 # Save to Excel
-writer = pd.ExcelWriter('csv/stocktable.xlsx', engine='xlsxwriter', date_format="YYYY-MM-DD")
-prices.to_excel(writer, sheet_name='prices')
-weights.to_excel(writer, sheet_name='weights')
-prices_pctchange.to_excel(writer, sheet_name='pct_change')
-daily_return.to_excel(writer, sheet_name='Total return')
-stock_value.to_excel(writer, sheet_name='Total value')
-stock_amount.to_excel(writer, sheet_name='Stock amount')
-weight_compliant_stock_amount.to_excel(writer, sheet_name='Compliant amounts')
-pd.DataFrame(prices_pctchange*weights, index=prices.index, columns=short_names).to_excel(writer, sheet_name='Return contributions')
-writer.save()
+sh_names = ['prices', 'weights', 'prices_pctchange', 'daily_return', 'stock_value', 'stock_amount',
+              'weight_compliant_stock_amount', 'return_contributions']
+pt.save2Excel(sh_names, prices, weights, prices_pctchange, daily_return, stock_value, stock_amount,
+              weight_compliant_stock_amount, return_contributions)
 
 plt.subplot(2, 1, 1)
 plt.plot(daily_return.iloc[:, 0])

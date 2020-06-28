@@ -201,3 +201,11 @@ def calculate_drawdown(returns):
     drawdown['Drawdown'] = (drawdown['Returns']/drawdown['HighValue'])*100
 
     return drawdown['Drawdown']
+
+
+def save2Excel(sheet_names, *args):
+    writer = pd.ExcelWriter('csv/stocktable.xlsx', engine='xlsxwriter', date_format="YYYY-MM-DD")
+    for df in zip(args, sheet_names):
+        df[0].to_excel(writer, sheet_name=df[1])
+    writer.save()
+
