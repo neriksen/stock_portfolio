@@ -49,6 +49,7 @@ weights =            [.4, .6]
 #weights =           []
 
 
+save_to_excel = True
 invest_amount = 44000
 gearing = 1
 per = '12y'
@@ -125,10 +126,11 @@ print(daily_return['Daily return'].tail()*100)
 
 
 # Save to Excel
-sh_names = ['prices', 'weights', 'prices_pctchange', 'daily_return', 'stock_value', 'stock_amount',
-              'weight_compliant_stock_amount', 'return_contributions']
-pt.save2Excel(sh_names, [prices, weights, prices_pctchange, daily_return, stock_value, stock_amount,
-              weight_compliant_stock_amount, return_contributions])
+if save_to_excel:
+    sh_names = ['prices', 'weights', 'prices_pctchange', 'daily_return', 'stock_value', 'stock_amount',
+                  'weight_compliant_stock_amount', 'return_contributions']
+    pt.save2Excel(sh_names, [prices, weights, prices_pctchange, daily_return, stock_value, stock_amount,
+                  weight_compliant_stock_amount, return_contributions])
 
 plt.subplot(2, 1, 1)
 plt.plot(daily_return.iloc[:, 0])
