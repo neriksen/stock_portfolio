@@ -49,7 +49,7 @@ weights =            [.4, .6]
 #weights =           []
 
 
-save_to_excel = True
+save_to_excel = False
 invest_amount = 44000
 gearing = 1
 per = '12y'
