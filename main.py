@@ -127,8 +127,8 @@ print(daily_return['Daily return'].tail()*100)
 # Save to Excel
 sh_names = ['prices', 'weights', 'prices_pctchange', 'daily_return', 'stock_value', 'stock_amount',
               'weight_compliant_stock_amount', 'return_contributions']
-pt.save2Excel(sh_names, prices, weights, prices_pctchange, daily_return, stock_value, stock_amount,
-              weight_compliant_stock_amount, return_contributions)
+pt.save2Excel(sh_names, [prices, weights, prices_pctchange, daily_return, stock_value, stock_amount,
+              weight_compliant_stock_amount, return_contributions])
 
 plt.subplot(2, 1, 1)
 plt.plot(daily_return.iloc[:, 0])
@@ -146,7 +146,7 @@ plt.hist(spy_growth, bins=np.arange(-0.04, 0.04, 0.001), alpha = 0.5, color='r')
 hist_height = max(n[0])
 mu = daily_return['Daily return'].mean()
 x = np.linspace(-0.04, 0.04, 100)
-scaling = (hist_height*0.8)/stats.norm.pdf(mu, mu, sigma)
+scaling = (hist_height*0.8)/stats.norm.pdf(mu, mu, portfolio_deviation)
 plt.plot(x, stats.norm.pdf(x, mu, portfolio_deviation)*scaling)
 plt.subplot(2, 3, 6)
 plt.plot(weights*100)
