@@ -2,6 +2,7 @@ import pandas as pd
 import yfinance as yf
 import numpy as np
 import datetime as dt
+import os
 import sys
 from collections import namedtuple
 
@@ -205,6 +206,8 @@ def calculate_drawdown(returns):
 
 def save2Excel(sheet_names, dfs):
     writer = pd.ExcelWriter('csv/stocktable.xlsx', engine='xlsxwriter', date_format="YYYY-MM-DD")
+    if not os.path.exists('csv'):
+        os.mkdir('csv')
     for df in zip(dfs, sheet_names):
         df[0].to_excel(writer, sheet_name=df[1])
     writer.save()
