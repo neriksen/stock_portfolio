@@ -134,3 +134,4 @@ tickers/
 app.py
 yfinancemodule/
 stockportfolio.py
+dump/
